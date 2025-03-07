@@ -49,7 +49,7 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
 
     if (!hasErrors) {
       try {
-        const response = await axios.post('http://localhost:8080/api/v1/backtestadd', formData);
+        const response = await axios.post('https://market-backtest.onrender.com/api/v1/backtestadd', formData);
         onSubmit(response.data);  
         alert('Trade details added successfully');
       } catch (error) {

@@ -8,7 +8,7 @@ import { BacktestDetails } from './components/BactestDetailform';
 // Fetch data from MongoDB and perform backtest
 const fetchDataAndBacktest = async (formData: any): Promise<BacktestData> => {
   try {
-    const response = await axios.get('http://localhost:8080/api/v1/backtestget', {
+    const response = await axios.get('https://market-backtest.onrender.com/api/v1/backtestget', {
       params: {
         stockType: formData.stockType,
         // startDate: formData.startDate,
