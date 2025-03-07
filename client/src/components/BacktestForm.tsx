@@ -124,7 +124,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
           </select>
         </div>
 
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
             <TrendingUp className="w-4 h-4 mr-2 text-blue-500" />
             Result Type
@@ -139,7 +139,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             <option value="Loss">Loss</option>
             <option value="Breakeven">Breakeven</option>
           </select>
-      </div>
+      </div> */}
       </div>
 
       <button

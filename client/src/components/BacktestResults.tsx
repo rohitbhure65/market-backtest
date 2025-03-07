@@ -1,5 +1,5 @@
 import { Line } from 'react-chartjs-2';
-import { BadgeIndianRupee } from 'lucide-react';
+import { Banknote, HandCoins, IndianRupee, Activity } from 'lucide-react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -117,86 +117,90 @@ export function BacktestResults({ data }: BacktestResultsProps) {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div className="bg-blue-50 p-4 rounded-lg">
+        <div className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
           <div className="flex items-center mb-2">
-            <TrendingUp className="w-5 h-5 text-blue-600 mr-2" />
+            <TrendingUp className="w-6 h-6 text-blue-600 mr-4" />
             <h3 className="text-lg font-semibold text-gray-800">Total Return</h3>
           </div>
-          <p className="text-2xl font-bold text-blue-600">
+          <p className="text-3xl font-bold text-gray-600">
             {data.totalReturn.toFixed(2)}%
           </p>
         </div>
 
-        <div className="bg-green-50 p-4 rounded-lg">
+        <div className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
           <div className="flex items-center mb-2">
-            <Target className="w-5 h-5 text-green-600 mr-2" />
+            <Target className="w-6 h-6 text-blue-600 mr-4" />
             <h3 className="text-lg font-semibold text-gray-800">Win Rate</h3>
           </div>
-          <p className="text-2xl font-bold text-green-600">
+          <p className="text-3xl font-bold text-gray-600">
             {winRate.toFixed(2)}%
           </p>
         </div>
-        <div className="bg-teal-50 p-4 rounded-lg">
+        <div className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
           <div className="flex items-center mb-2">
-          <BadgeIndianRupee className="w-5 h-5 text-green-600 mr-2" />
+            <IndianRupee className="w-6 h-6 text-blue-600 mr-4" />
             <h3 className="text-lg font-semibold text-gray-800">Total Profit</h3>
           </div>
-          <p className="text-2xl font-bold text-teal-600">
-           {totalProfit.toFixed(2)}
+          <p className="text-3xl font-bold text-gray-600">
+            {totalProfit.toFixed(2)}
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div className="bg-yellow-50 p-4 rounded-lg">
+        <div className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
           <div className="flex items-center mb-2">
+            <HandCoins className="w-6 h-6 text-blue-600 mr-4" />
             <h3 className="text-lg font-semibold text-gray-800">Total Investment</h3>
           </div>
-          <p className="text-2xl font-bold text-yellow-600">
+          <p className="text-3xl font-bold text-gray-600">
             Rs {totalInvestment.toFixed(2)}
           </p>
         </div>
 
-        <div className="bg-purple-50 p-4 rounded-lg">
+        <div className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
           <div className="flex items-center mb-2">
+            <Banknote className="w-6 h-6 text-blue-600 mr-4" />
             <h3 className="text-lg font-semibold text-gray-800">Total Gain</h3>
           </div>
-          <p className="text-2xl font-bold text-purple-600">
+          <p className="text-3xl font-bold text-gray-600">
             Rs {totalGain.toFixed(2)}
           </p>
         </div>
 
-        <div className="bg-pink-50 p-4 rounded-lg">
+        <div className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
           <div className="flex items-center mb-2">
+            <Activity className="w-6 h-6 text-blue-600 mr-4" />
             <h3 className="text-lg font-semibold text-gray-800">Total Trades</h3>
           </div>
-          <p className="text-2xl font-bold text-pink-600">
+          <p className="text-3xl font-bold text-gray-600">
             {totalTrades}
           </p>
         </div>
 
-        <div className="bg-indigo-50 p-4 rounded-lg">
+        <div className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
           <div className="flex items-center mb-2">
+            <Activity className="w-6 h-6 text-blue-600 mr-4" />
             <h3 className="text-lg font-semibold text-gray-800">Trades Won</h3>
           </div>
-          <p className="text-2xl font-bold text-indigo-600">
+          <p className="text-3xl font-bold text-gray-600">
             {tradesWon}
           </p>
         </div>
 
-        <div className="bg-red-50 p-4 rounded-lg">
+        <div className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
           <div className="flex items-center mb-2">
+            <Activity className="w-6 h-6 text-blue-600 mr-4" />
             <h3 className="text-lg font-semibold text-gray-800">Trades Lost</h3>
           </div>
-          <p className="text-2xl font-bold text-red-600">
+          <p className="text-3xl font-bold text-gray-600">
             {tradesLost}
           </p>
         </div>
 
-
       </div>
 
-      <div className="flex justify-center h-[400px] mb-8">
+      <div className="flex justify-center h-[400px] mb-40 mt-40">
         <Line data={chartData} options={chartOptions} />
       </div>
 

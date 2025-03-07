@@ -14,8 +14,8 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
     timeFrame: '',
     strategyName: '',
     date: '',
-    entryPrice: 0,
-    closingPrice: 0
+    entryPrice: '',
+    closingPrice: ''
   });
 
   const [errors, setErrors] = useState({
@@ -188,6 +188,7 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
           </label>
           <input
             type="number"
+            placeholder='Enter Entry Price'
             value={formData.entryPrice}
             onChange={(e) => setFormData({ ...formData, entryPrice: Number(e.target.value) })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
@@ -202,6 +203,7 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
           </label>
           <input
             type="number"
+            placeholder='Enter Closing Price'
             value={formData.closingPrice}
             onChange={(e) => setFormData({ ...formData, closingPrice: Number(e.target.value) })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
