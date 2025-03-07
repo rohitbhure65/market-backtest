@@ -28,7 +28,7 @@ interface BacktestResultsProps {
 
 export function BacktestResults({ data }: BacktestResultsProps) {
   const chartData = {
-    labels: data.results.map(r => r.date),
+    labels: data.results.map(r => new Date(r.date).toISOString().slice(0, 10)),
     datasets: [
       {
         label: 'Portfolio Value',
@@ -221,7 +221,7 @@ export function BacktestResults({ data }: BacktestResultsProps) {
                 const isLoss = result.profit < 40;
                 return (
                   <tr key={index} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{result.date}</td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{new Date(result.date).toLocaleDateString('en-CA')}</td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{result.day}</td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{result.time}</td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{result.strategy}</td>

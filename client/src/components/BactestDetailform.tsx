@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Calendar, Clock, TrendingUp, Brain } from 'lucide-react';
+import { Calendar, Clock, TrendingUp, Brain, BadgeIndianRupee } from 'lucide-react';
 
 interface BacktestFormProps {
   onSubmit: (data: any) => void;
@@ -13,7 +13,9 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
     stockType: '',
     timeFrame: '',
     strategyName: '',
-    result: ''
+    date: '',
+    entryPrice: '0',
+    closingPrice: '0'
   });
 
   const [errors, setErrors] = useState({
@@ -22,7 +24,9 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
     stockType: '',
     timeFrame: '',
     strategyName: '',
-    result: ''
+    date: '',
+    entryPrice: '',
+    closingPrice: ''
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,7 +38,9 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
       stockType: formData.stockType ? '' : 'Market Type is required',
       timeFrame: formData.timeFrame ? '' : 'Time Frame is required',
       strategyName: formData.strategyName ? '' : 'Strategy Name is required',
-      result: formData.result ? '' : 'Result Type is required'
+      date: formData.date ? '' : 'Date is required',
+      entryPrice: formData.entryPrice ? '' : 'Entry Price is required',
+      closingPrice: formData.closingPrice ? '' : 'Closing Price is required'
     };
 
     setErrors(newErrors);
@@ -163,21 +169,45 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
 
         <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
-            <TrendingUp className="w-4 h-4 mr-2 text-blue-500" />
-            Result Type
+            <Calendar className="w-4 h-4 mr-2 text-blue-500" />
+            Date
           </label>
-          <select
-            value={formData.result}
-            onChange={(e) => setFormData({ ...formData, result: e.target.value })}
+          <input
+            type="date"
+            value={formData.date}
+            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
-          >
-            <option value="">Select Result</option>
-            <option value="Profit">Profit</option>
-            <option value="Loss">Loss</option>
-            <option value="Breakeven">Breakeven</option>
-          </select>
-          {errors.result && <p className="text-red-500 text-sm">{errors.result}</p>}
-        </div>
+          />
+          {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}  
+          </div>
+
+          <div className="space-y-2">
+          <label className="flex items-center text-sm font-medium text-gray-700">
+            <BadgeIndianRupee className="w-4 h-4 mr-2 text-blue-500" />
+            Entry Price
+          </label>
+          <input
+            type="number"
+            value={formData.entryPrice}
+            onChange={(e) => setFormData({ ...formData, entryPrice: e.target.value })}
+            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
+          />  
+          {errors.entryPrice && <p className="text-red-500 text-sm">{errors.entryPrice}</p>}
+          </div>
+
+          <div className="space-y-2">
+          <label className="flex items-center text-sm font-medium text-gray-700">
+            <BadgeIndianRupee className="w-4 h-4 mr-2 text-blue-500" />
+            Closing Price
+          </label>
+          <input
+            type="number"
+            value={formData.closingPrice}
+            onChange={(e) => setFormData({ ...formData, closingPrice: e.target.value })}
+            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
+          />
+          {errors.closingPrice && <p className="text-red-500 text-sm">{errors.closingPrice}</p>}
+          </div>
       </div>
 
       <button
