@@ -1,4 +1,5 @@
 import { Line } from 'react-chartjs-2';
+import { BadgeIndianRupee } from 'lucide-react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -137,10 +138,11 @@ export function BacktestResults({ data }: BacktestResultsProps) {
         </div>
         <div className="bg-teal-50 p-4 rounded-lg">
           <div className="flex items-center mb-2">
+          <BadgeIndianRupee className="w-5 h-5 text-green-600 mr-2" />
             <h3 className="text-lg font-semibold text-gray-800">Total Profit</h3>
           </div>
           <p className="text-2xl font-bold text-teal-600">
-            Rs {totalProfit.toFixed(2)}
+           {totalProfit.toFixed(2)}
           </p>
         </div>
       </div>

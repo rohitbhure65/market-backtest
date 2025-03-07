@@ -46,7 +46,7 @@ exports.backtestget = async (req, res) => {
             queryobject.result = { $regex: result, $options: 'i' };
         }
         if (date) {
-            queryobject.date = { $regex: date, $options: 'i' };
+            queryobject.date = new Date(date);
         }
 
         // console.log(queryobject);
