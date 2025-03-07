@@ -139,14 +139,15 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             <option value="Loss">Loss</option>
             <option value="Breakeven">Breakeven</option>
           </select>
-        </div>
+      </div>
       </div>
 
       <button
-        type="submit"
-        className="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200"
+      type="submit"
+      className="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-md hover:from-blue-600 hover:to-purple-700 active:from-blue-700 active:to-purple-800 transition-colors duration-200 flex items-center justify-center"
       >
-        Run Backtest
+      <TrendingUp className="w-4 h-4 mr-2" />
+      Run Backtest
       </button>
     </form>
   );

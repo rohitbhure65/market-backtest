@@ -16,13 +16,38 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
     result: ''
   });
 
+  const [errors, setErrors] = useState({
+    day: '',
+    time: '',
+    stockType: '',
+    timeFrame: '',
+    strategyName: '',
+    result: ''
+  });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('/api/trades', formData);
-      onSubmit(response.data);
-    } catch (error) {
-      console.error('Error saving trade details:', error);
+
+    const newErrors = {
+      day: formData.day ? '' : 'Day is required',
+      time: formData.time ? '' : 'Time is required',
+      stockType: formData.stockType ? '' : 'Market Type is required',
+      timeFrame: formData.timeFrame ? '' : 'Time Frame is required',
+      strategyName: formData.strategyName ? '' : 'Strategy Name is required',
+      result: formData.result ? '' : 'Result Type is required'
+    };
+
+    setErrors(newErrors);
+
+    const hasErrors = Object.values(newErrors).some(error => error !== '');
+
+    if (!hasErrors) {
+      try {
+        const response = await axios.post('/api/trades', formData);
+        onSubmit(response.data);
+      } catch (error) {
+        console.error('Error saving trade details:', error);
+      }
     }
   };
 
@@ -49,11 +74,12 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             onChange={(e) => setFormData({ ...formData, day: e.target.value })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
           >
-            <option value="All">All Days</option>
+            <option value="">Select Day</option>
             {days.map(day => (
               <option key={day} value={day}>{day}</option>
             ))}
           </select>
+          {errors.day && <p className="text-red-500 text-sm">{errors.day}</p>}
         </div>
 
         <div className="space-y-2">
@@ -66,11 +92,12 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             onChange={(e) => setFormData({ ...formData, time: e.target.value })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
           >
-            <option value="All">All Times</option>
+            <option value="">Select Time</option>
             {times.map(time => (
               <option key={time} value={time}>{time}</option>
             ))}
           </select>
+          {errors.time && <p className="text-red-500 text-sm">{errors.time}</p>}
         </div>
 
         <div className="space-y-2">
@@ -88,6 +115,7 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             <option value="Stock">Stock</option>
             <option value="Options">Options</option>
           </select>
+          {errors.stockType && <p className="text-red-500 text-sm">{errors.stockType}</p>}
         </div>
 
         <div className="space-y-2">
@@ -111,6 +139,7 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             <option value="1w">1 Week</option>
             <option value="1mo">1 Month</option>
           </select>
+          {errors.timeFrame && <p className="text-red-500 text-sm">{errors.timeFrame}</p>}
         </div>
 
         <div className="space-y-2">
@@ -129,6 +158,7 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             <option value="MACD Strategy">MACD Strategy</option>
             <option value="Bollinger Bands">Bollinger Bands</option>
           </select>
+          {errors.strategyName && <p className="text-red-500 text-sm">{errors.strategyName}</p>}
         </div>
 
         <div className="space-y-2">
@@ -141,18 +171,20 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             onChange={(e) => setFormData({ ...formData, result: e.target.value })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
           >
-            <option value="">All Results</option>
+            <option value="">Select Result</option>
             <option value="Profit">Profit</option>
             <option value="Loss">Loss</option>
             <option value="Breakeven">Breakeven</option>
           </select>
+          {errors.result && <p className="text-red-500 text-sm">{errors.result}</p>}
         </div>
       </div>
 
       <button
         type="submit"
-        className="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200"
+        className="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-md hover:from-blue-600 hover:to-purple-700 active:from-blue-700 active:to-purple-800 transition-colors duration-200 flex items-center justify-center"
       >
+        <TrendingUp className="w-4 h-4 mr-2" />
         Add Trade
       </button>
     </form>

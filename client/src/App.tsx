@@ -83,9 +83,10 @@ function App() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Stock Market Backtesting - By Rohit Bhure</h1>
           <p className="text-gray-600">Test your trading strategies with historical data</p>
+          <p className="text-gray-600 mt-4">Disclaimer: This application is intended for educational purposes only. It is not financial advice and should not be used for actual trading decisions.</p>
         </div>
-        <BacktestDetails onSubmit={handleSubmit} />
         <BacktestForm onSubmit={handleSubmit} />
+        <BacktestDetails onSubmit={handleSubmit} />
         
         {backtestData && <BacktestResults data={backtestData} />}
       </main>
