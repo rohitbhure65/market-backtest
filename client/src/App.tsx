@@ -4,7 +4,7 @@ import { BacktestForm } from './components/BacktestForm';
 import { BacktestResults } from './components/BacktestResults';
 import { BacktestData } from './types';
 import { Binary } from 'lucide-react';
-
+import { BacktestDetails } from './components/BactestDetailform';
 // Fetch data from MongoDB and perform backtest
 const fetchDataAndBacktest = async (formData: any): Promise<BacktestData> => {
   try {
@@ -84,7 +84,7 @@ function App() {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Stock Market Backtesting - By Rohit Bhure</h1>
           <p className="text-gray-600">Test your trading strategies with historical data</p>
         </div>
-
+        <BacktestDetails onSubmit={handleSubmit} />
         <BacktestForm onSubmit={handleSubmit} />
         
         {backtestData && <BacktestResults data={backtestData} />}

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Calendar, Clock, TrendingUp, Brain } from 'lucide-react';
 
 interface BacktestFormProps {
   onSubmit: (data: any) => void;
 }
 
-export function BacktestForm({ onSubmit }: BacktestFormProps) {
+export function BacktestDetails({ onSubmit }: BacktestFormProps) {
   const [formData, setFormData] = useState({
     day: '',
     time: '',
@@ -15,12 +16,17 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
     result: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    try {
+      const response = await axios.post('/api/trades', formData);
+      onSubmit(response.data);
+    } catch (error) {
+      console.error('Error saving trade details:', error);
+    }
   };
 
-  const days = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday'];
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const times = [];
   for (let h = 0; h < 24; h++) {
     for (let m = 0; m < 60; m += 5) {
@@ -83,6 +89,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             <option value="Options">Options</option>
           </select>
         </div>
+
         <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
             <Clock className="w-4 h-4 mr-2 text-blue-500" />
@@ -146,7 +153,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
         type="submit"
         className="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200"
       >
-        Run Backtest
+        Add Trade
       </button>
     </form>
   );

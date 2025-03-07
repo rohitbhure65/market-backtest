@@ -72,7 +72,7 @@ export function BacktestResults({ data }: BacktestResultsProps) {
           size: 12,
         },
         footerFont: {
-          size: 10,
+          size: 9,
         },
         cornerRadius: 4,
       },
