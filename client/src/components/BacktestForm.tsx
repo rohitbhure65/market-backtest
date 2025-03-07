@@ -7,14 +7,14 @@ interface BacktestFormProps {
 
 export function BacktestForm({ onSubmit }: BacktestFormProps) {
   const [formData, setFormData] = useState({
-    startDate: '2025-03-01',
-    endDate: new Date().toISOString().split('T')[0],
-    day: 'Monday',
-    time: '09:15',
+    // startDate: '2025-03-01',
+    // endDate: new Date().toISOString().split('T')[0],
+    day: '',
+    time: '',
     stockType: '',
-    timeFrame: '5m',
-    strategyName: 'SMA Crossover',
-    result: 'All'
+    timeFrame: '',
+    strategyName: '',
+    result: ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -35,7 +35,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-8 mb-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
             <Calendar className="w-4 h-4 mr-2 text-blue-500" />
             Start Date
@@ -59,7 +59,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           />
-        </div>
+        </div> */}
 
         <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
@@ -121,6 +121,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             onChange={(e) => setFormData({ ...formData, timeFrame: e.target.value })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
           >
+            <option value="">Select Time frame</option>
             <option value="1m">1 Minute</option>
             <option value="5m">5 Minutes</option>
             <option value="15m">15 Minutes</option>
@@ -143,6 +144,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             onChange={(e) => setFormData({ ...formData, strategyName: e.target.value })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
           >
+            <option value="">Select Strategy</option>
             <option value="SMA Crossover">SMA Crossover</option>
             <option value="RSI Strategy">RSI Strategy</option>
             <option value="MACD Strategy">MACD Strategy</option>
@@ -160,7 +162,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             onChange={(e) => setFormData({ ...formData, result: e.target.value })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
           >
-            <option value="All">All Results</option>
+            <option value="">All Results</option>
             <option value="Profit">Profit</option>
             <option value="Loss">Loss</option>
             <option value="Breakeven">Breakeven</option>

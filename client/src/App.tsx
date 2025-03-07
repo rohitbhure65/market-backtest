@@ -8,11 +8,17 @@ import { Binary } from 'lucide-react';
 // Fetch data from MongoDB and perform backtest
 const fetchDataAndBacktest = async (formData: any): Promise<BacktestData> => {
   try {
-    const response = await axios.get('http://your-mongodb-server-url/data', {
+    const response = await axios.get('http://localhost:8080/api/v1/backtestget', {
       params: {
         stockType: formData.stockType,
-        startDate: formData.startDate,
-        endDate: formData.endDate
+        // startDate: formData.startDate,
+        // endDate: formData.endDate,
+        day: formData.day,
+        time: formData.time,
+        strategyName: formData.strategyName,
+        timeFrame: formData.timeFrame,
+        result: formData.result,
+        date: formData.date
       }
     });
 
@@ -25,7 +31,7 @@ const fetchDataAndBacktest = async (formData: any): Promise<BacktestData> => {
       timeFrame: entry.timeFrame,
       entryPrice: entry.entryPrice,
       closingPrice: entry.closingPrice,
-      profit: entry.closingPrice - entry.entryPrice,
+      profit: entry.profit,
       result: entry.result
     }));
 
