@@ -43,7 +43,7 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
 
     if (!hasErrors) {
       try {
-        const response = await axios.post('/api/trades', formData);
+        const response = await axios.post('https://localhost:8080/api/v1/backtestadd', formData);
         onSubmit(response.data);
       } catch (error) {
         console.error('Error saving trade details:', error);

@@ -2,7 +2,16 @@ const Backtest = require('../Model/backtest');
 
 exports.backtestadd = async (req, res) => {
     try {
-        const newbacktest = new Backtest(req.body);
+        const { entryPrice, closingPrice, date } = req.body;
+        const profit = closingPrice - entryPrice;
+        const result = profit < 40 ? "Loss" : "Profit";
+
+        const newbacktest = new Backtest({
+            ...req.body,
+            profit,
+            result
+        });
+
         const savedbacktest = await newbacktest.save();
         res.status(201).json(savedbacktest);
     } catch (error) {

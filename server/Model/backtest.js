@@ -7,7 +7,7 @@ const BacktestingSchema = new mongoose.Schema({
     timeFrame: { type: String, required: true },
     strategyName: { type: String, required: true },
     result: { type: String, required: true },
-    date: { type: Date, default: Date.now, required: true },
+    date: { type: Date, required: true },
     entryPrice: { type: Number, required: true },
     closingPrice: { type: Number, required: true },
     profit:{ type: Number, required: true },
