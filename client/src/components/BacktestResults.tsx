@@ -113,7 +113,7 @@ export function BacktestResults({ data }: BacktestResultsProps) {
   const totalProfit = data.results.reduce((sum, r) => sum + r.profit, 0) - (totalTrades * 40);
 
   const winRate = (tradesWon / totalTrades) * 100;
-
+  const totalReturn = (totalProfit / totalInvestment) * 100;  
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -123,7 +123,7 @@ export function BacktestResults({ data }: BacktestResultsProps) {
             <h3 className="text-lg font-semibold text-gray-800">Total Return</h3>
           </div>
           <p className="text-3xl font-bold text-gray-600">
-            {data.totalReturn.toFixed(2)}%
+            {totalReturn.toFixed(2)}%
           </p>
         </div>
 
@@ -208,7 +208,7 @@ export function BacktestResults({ data }: BacktestResultsProps) {
         <h3 className="text-lg font-semibold mb-4">Trade History</h3>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-gray-200">
               <tr>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Day</th>
@@ -233,9 +233,9 @@ export function BacktestResults({ data }: BacktestResultsProps) {
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{result.strategy}</td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{result.market}</td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{result.timeFrame}</td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Rs {result.entryPrice.toFixed(2)}</td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Rs {result.closingPrice.toFixed(2)}</td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">Rs {result.profit.toFixed(2)}</td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{result.entryPrice.toFixed(2)}</td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{result.closingPrice.toFixed(2)}</td>
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{result.profit.toFixed(2)}</td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       <span className={`px-2 py-1 rounded-full text-xs font-semibold
                         ${isLoss ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>

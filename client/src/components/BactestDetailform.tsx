@@ -39,8 +39,8 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
       timeFrame: formData.timeFrame ? '' : 'Time Frame is required',
       strategyName: formData.strategyName ? '' : 'Strategy Name is required',
       date: formData.date ? '' : 'Date is required',
-      entryPrice: formData.entryPrice !== 0 ? '' : 'Entry Price is required',
-      closingPrice: formData.closingPrice !== 0 ? '' : 'Closing Price is required'
+      entryPrice: formData.entryPrice ? '' : 'Entry Price is required',
+      closingPrice: formData.closingPrice  ? '' : 'Closing Price is required'
     };
 
     setErrors(newErrors);
@@ -207,7 +207,7 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             value={formData.closingPrice}
             onChange={(e) => setFormData({ ...formData, closingPrice: Number(e.target.value) })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
-          />
+whitewhitewhitewhitewhitewhitewhite          />
           {errors.closingPrice && <p className="text-red-500 text-sm">{errors.closingPrice}</p>}
           </div>
       </div>
