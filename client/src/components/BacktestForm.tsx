@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, TrendingUp, Brain } from 'lucide-react';
-
+import axios from 'axios'
 interface BacktestFormProps {
   onSubmit: (data: any) => void;
 }
@@ -14,6 +14,21 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
     strategyName: '',
     result: ''
   });
+
+  const [strategies, setStrategies] = useState<{ _id: string; StrategyName: string }[]>([]);
+
+  useEffect(() => {
+    const fetchStrategies = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/v1/strategyget');
+        setStrategies(response.data);
+      } catch (error) {
+        console.error('Error fetching strategies:', error);
+      }
+    };
+
+    fetchStrategies();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,6 +123,8 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
           </select>
         </div>
 
+
+
         <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
             <Brain className="w-4 h-4 mr-2 text-blue-500" />
@@ -119,10 +136,9 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
           >
             <option value="">Select Strategy</option>
-            <option value="EMA Crossover">EMA Crossover</option>
-            <option value="RSI Strategy">RSI Strategy</option>
-            <option value="MACD Strategy">MACD Strategy</option>
-            <option value="Bollinger Bands">Bollinger Bands</option>
+            {strategies.map(strategy => (
+              <option key={strategy._id} value={strategy.StrategyName}>{strategy.StrategyName}</option>
+            ))}
           </select>
         </div>
 
