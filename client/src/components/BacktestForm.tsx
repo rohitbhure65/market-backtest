@@ -95,10 +95,12 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
           >
             <option value="">Select Time frame</option>
             <option value="1m">1 Minute</option>
+            <option value="3m">3 Minute</option>
             <option value="5m">5 Minutes</option>
             <option value="15m">15 Minutes</option>
             <option value="30m">30 Minutes</option>
             <option value="1h">1 Hour</option>
+            <option value="2h">2 Hour</option>
             <option value="4h">4 Hours</option>
             <option value="1d">1 Day</option>
             <option value="1w">1 Week</option>
@@ -117,7 +119,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
           >
             <option value="">Select Strategy</option>
-            <option value="SMA Crossover">SMA Crossover</option>
+            <option value="EMA Crossover">EMA Crossover</option>
             <option value="RSI Strategy">RSI Strategy</option>
             <option value="MACD Strategy">MACD Strategy</option>
             <option value="Bollinger Bands">Bollinger Bands</option>
