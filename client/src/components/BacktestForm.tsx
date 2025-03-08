@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, TrendingUp, Brain } from 'lucide-react';
-
+import axios from 'axios'
 interface BacktestFormProps {
   onSubmit: (data: any) => void;
 }
@@ -15,12 +15,27 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
     result: ''
   });
 
+  const [strategies, setStrategies] = useState<{ _id: string; StrategyName: string }[]>([]);
+
+  useEffect(() => {
+    const fetchStrategies = async () => {
+      try {
+        const response = await axios.get('https://market-backtest.onrender.com/api/v1/strategyget');
+        setStrategies(response.data);
+      } catch (error) {
+        console.error('Error fetching strategies:', error);
+      }
+    };
+
+    fetchStrategies();
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
   };
 
-  const days = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday'];
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const times = [];
   for (let h = 0; h < 24; h++) {
     for (let m = 0; m < 60; m += 5) {
@@ -95,10 +110,12 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
           >
             <option value="">Select Time frame</option>
             <option value="1m">1 Minute</option>
+            <option value="3m">3 Minute</option>
             <option value="5m">5 Minutes</option>
             <option value="15m">15 Minutes</option>
             <option value="30m">30 Minutes</option>
             <option value="1h">1 Hour</option>
+            <option value="2h">2 Hour</option>
             <option value="4h">4 Hours</option>
             <option value="1d">1 Day</option>
             <option value="1w">1 Week</option>
@@ -106,23 +123,28 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
           </select>
         </div>
 
+
         <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
             <Brain className="w-4 h-4 mr-2 text-blue-500" />
             Strategy Name
           </label>
-          <select
-            value={formData.strategyName}
-            onChange={(e) => setFormData({ ...formData, strategyName: e.target.value })}
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
-          >
-            <option value="">Select Strategy</option>
-            <option value="SMA Crossover">SMA Crossover</option>
-            <option value="RSI Strategy">RSI Strategy</option>
-            <option value="MACD Strategy">MACD Strategy</option>
-            <option value="Bollinger Bands">Bollinger Bands</option>
-          </select>
+          {strategies.length === 0 ? (
+            <p>Loading...</p>
+          ) : (
+            <select
+              value={formData.strategyName}
+              onChange={(e) => setFormData({ ...formData, strategyName: e.target.value })}
+              className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
+            >
+              <option value="">Select Strategy</option>
+              {strategies.map(strategy => (
+                <option key={strategy._id} value={strategy.StrategyName}>{strategy.StrategyName}</option>
+              ))}
+            </select>
+          )}
         </div>
+
 
         {/* <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
@@ -143,11 +165,11 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
       </div>
 
       <button
-      type="submit"
-      className="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-md hover:from-blue-600 hover:to-purple-700 active:from-blue-700 active:to-purple-800 transition-colors duration-200 flex items-center justify-center"
+        type="submit"
+        className="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-md hover:from-blue-600 hover:to-purple-700 active:from-blue-700 active:to-purple-800 transition-colors duration-200 flex items-center justify-center"
       >
-      <TrendingUp className="w-4 h-4 mr-2" />
-      Run Backtest
+        <TrendingUp className="w-4 h-4 mr-2" />
+        Run Backtest
       </button>
     </form>
   );

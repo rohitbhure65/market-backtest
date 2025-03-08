@@ -93,7 +93,7 @@ function App() {
         </div>
         <BacktestForm onSubmit={handleSubmit} />
         <BacktestDetails onSubmit={handleSubmit} />
-        
+
         <div className="flex justify-center items-center">
           {loading ? (
             <DNA

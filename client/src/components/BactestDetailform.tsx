@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Calendar, Clock, TrendingUp, Brain, BadgeIndianRupee } from 'lucide-react';
 
@@ -40,7 +40,7 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
       strategyName: formData.strategyName ? '' : 'Strategy Name is required',
       date: formData.date ? '' : 'Date is required',
       entryPrice: formData.entryPrice ? '' : 'Entry Price is required',
-      closingPrice: formData.closingPrice  ? '' : 'Closing Price is required'
+      closingPrice: formData.closingPrice ? '' : 'Closing Price is required'
     };
 
     setErrors(newErrors);
@@ -50,7 +50,7 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
     if (!hasErrors) {
       try {
         const response = await axios.post('https://market-backtest.onrender.com/api/v1/backtestadd', formData);
-        onSubmit(response.data);  
+        onSubmit(response.data);
         alert('Trade details added successfully');
       } catch (error) {
         console.error('Error saving trade details:', error);
@@ -58,6 +58,21 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
       }
     }
   };
+
+  const [strategies, setStrategies] = useState<{ _id: string; StrategyName: string }[]>([]);
+
+  useEffect(() => {
+    const fetchStrategies = async () => {
+      try {
+        const response = await axios.get('https://market-backtest.onrender.com/api/v1/strategyget');
+        setStrategies(response.data);
+      } catch (error) {
+        console.error('Error fetching strategies:', error);
+      }
+    };
+
+    fetchStrategies();
+  }, []);
 
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const times = [];
@@ -138,10 +153,12 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
           >
             <option value="">Select Time frame</option>
             <option value="1m">1 Minute</option>
+            <option value="3m">3 Minute</option>
             <option value="5m">5 Minutes</option>
             <option value="15m">15 Minutes</option>
             <option value="30m">30 Minutes</option>
             <option value="1h">1 Hour</option>
+            <option value="2h">2 Hour</option>
             <option value="4h">4 Hours</option>
             <option value="1d">1 Day</option>
             <option value="1w">1 Week</option>
@@ -155,17 +172,20 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             <Brain className="w-4 h-4 mr-2 text-blue-500" />
             Strategy Name
           </label>
-          <select
-            value={formData.strategyName}
-            onChange={(e) => setFormData({ ...formData, strategyName: e.target.value })}
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
-          >
-            <option value="">Select Strategy</option>
-            <option value="SMA Crossover">SMA Crossover</option>
-            <option value="RSI Strategy">RSI Strategy</option>
-            <option value="MACD Strategy">MACD Strategy</option>
-            <option value="Bollinger Bands">Bollinger Bands</option>
-          </select>
+          {strategies.length === 0 ? (
+            <p>Loading...</p>
+          ) : (
+            <select
+              value={formData.strategyName}
+              onChange={(e) => setFormData({ ...formData, strategyName: e.target.value })}
+              className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
+            >
+              <option value="">Select Strategy</option>
+              {strategies.map(strategy => (
+                <option key={strategy._id} value={strategy.StrategyName}>{strategy.StrategyName}</option>
+              ))}
+            </select>
+          )}
           {errors.strategyName && <p className="text-red-500 text-sm">{errors.strategyName}</p>}
         </div>
 
@@ -180,10 +200,10 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
           />
-          {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}  
-          </div>
+          {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
+        </div>
 
-          <div className="space-y-2">
+        <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
             <BadgeIndianRupee className="w-4 h-4 mr-2 text-blue-500" />
             Entry Price
@@ -194,11 +214,11 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             value={formData.entryPrice}
             onChange={(e) => setFormData({ ...formData, entryPrice: Number(e.target.value) })}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
-          />  
+          />
           {errors.entryPrice && <p className="text-red-500 text-sm">{errors.entryPrice}</p>}
-          </div>
+        </div>
 
-          <div className="space-y-2">
+        <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
             <BadgeIndianRupee className="w-4 h-4 mr-2 text-blue-500" />
             Closing Price
@@ -208,10 +228,9 @@ export function BacktestDetails({ onSubmit }: BacktestFormProps) {
             placeholder='Enter Closing Price'
             value={formData.closingPrice}
             onChange={(e) => setFormData({ ...formData, closingPrice: Number(e.target.value) })}
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
-whitewhitewhitewhitewhitewhitewhite          />
+            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200" />
           {errors.closingPrice && <p className="text-red-500 text-sm">{errors.closingPrice}</p>}
-          </div>
+        </div>
       </div>
 
       <button
