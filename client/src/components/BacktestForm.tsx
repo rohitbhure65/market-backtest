@@ -20,7 +20,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
   useEffect(() => {
     const fetchStrategies = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/v1/strategyget');
+        const response = await axios.get('https://market-backtest.onrender.com/api/v1/strategyget');
         setStrategies(response.data);
       } catch (error) {
         console.error('Error fetching strategies:', error);
@@ -35,7 +35,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
     onSubmit(formData);
   };
 
-  const days = ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday'];
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const times = [];
   for (let h = 0; h < 24; h++) {
     for (let m = 0; m < 60; m += 5) {
@@ -124,23 +124,27 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
         </div>
 
 
-
         <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
             <Brain className="w-4 h-4 mr-2 text-blue-500" />
             Strategy Name
           </label>
-          <select
-            value={formData.strategyName}
-            onChange={(e) => setFormData({ ...formData, strategyName: e.target.value })}
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
-          >
-            <option value="">Select Strategy</option>
-            {strategies.map(strategy => (
-              <option key={strategy._id} value={strategy.StrategyName}>{strategy.StrategyName}</option>
-            ))}
-          </select>
+          {strategies.length === 0 ? (
+            <p>Loading...</p>
+          ) : (
+            <select
+              value={formData.strategyName}
+              onChange={(e) => setFormData({ ...formData, strategyName: e.target.value })}
+              className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-white hover:bg-gray-100 transition-colors duration-200"
+            >
+              <option value="">Select Strategy</option>
+              {strategies.map(strategy => (
+                <option key={strategy._id} value={strategy.StrategyName}>{strategy.StrategyName}</option>
+              ))}
+            </select>
+          )}
         </div>
+
 
         {/* <div className="space-y-2">
           <label className="flex items-center text-sm font-medium text-gray-700">
@@ -161,11 +165,11 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
       </div>
 
       <button
-      type="submit"
-      className="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-md hover:from-blue-600 hover:to-purple-700 active:from-blue-700 active:to-purple-800 transition-colors duration-200 flex items-center justify-center"
+        type="submit"
+        className="mt-6 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-2 px-4 rounded-md hover:from-blue-600 hover:to-purple-700 active:from-blue-700 active:to-purple-800 transition-colors duration-200 flex items-center justify-center"
       >
-      <TrendingUp className="w-4 h-4 mr-2" />
-      Run Backtest
+        <TrendingUp className="w-4 h-4 mr-2" />
+        Run Backtest
       </button>
     </form>
   );

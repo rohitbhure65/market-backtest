@@ -10,7 +10,7 @@ import { DNA } from 'react-loader-spinner'
 // Fetch data from MongoDB and perform backtest
 const fetchDataAndBacktest = async (formData: any): Promise<BacktestData> => {
   try {
-    const response = await axios.get('http://localhost:8080/api/v1/backtestget', {
+    const response = await axios.get('https://market-backtest.onrender.com/api/v1/backtestget', {
       params: {
         stockType: formData.stockType,
         day: formData.day,
@@ -93,7 +93,7 @@ function App() {
         </div>
         <BacktestForm onSubmit={handleSubmit} />
         <BacktestDetails onSubmit={handleSubmit} />
-        
+
         <div className="flex justify-center items-center">
           {loading ? (
             <DNA
