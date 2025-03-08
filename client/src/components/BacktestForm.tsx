@@ -96,6 +96,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             <option value="Crypto">Crypto</option>
             <option value="Stock">Stock</option>
             <option value="Options">Options</option>
+            <option value="Forex">Forex</option>
           </select>
         </div>
         <div className="space-y-2">
@@ -112,6 +113,7 @@ export function BacktestForm({ onSubmit }: BacktestFormProps) {
             <option value="1m">1 Minute</option>
             <option value="3m">3 Minute</option>
             <option value="5m">5 Minutes</option>
+            <option value="10m">10 Minutes</option>
             <option value="15m">15 Minutes</option>
             <option value="30m">30 Minutes</option>
             <option value="1h">1 Hour</option>
