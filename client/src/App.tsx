@@ -87,9 +87,6 @@ function App() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Stock Market Backtesting - Developed by Rohit Bhure</h1>
           <p className="text-gray-600">Test your trading strategies with historical data</p>
-          <p className="text-gray-600 mt-4">Note: Even if you see a profit of less than 40 Rs, it might still appear as a loss due to brokerage charges, which can be a minimum of 40 Rs. Therefore, if you are earning less than 40 Rs, you are still at a loss.</p>
-          <p className="text-gray-600 mt-4"><b>Disclaimer</b>: This application is intended for educational purposes only. It is not financial advice and should not be used for actual trading decisions.This application is intended for educational purposes only. It is not financial advice and should not be used for actual trading decisions. This application is designed to improve your stock market testing and accuracy. If you are investing or planning to invest in the stock market or crypto, this application can be very helpful for you as it provides many options such as creating and testing your own strategy. Note that the stock market is not always suitable for day trading, and only those who are investing can understand this.</p>
-          <p className="text-gray-600 mt-4">This application will undergo many changes. We will improve it significantly by implementing features such as sentiment analysis and machine learning, as well as incorporating data analysis.</p>
         </div>
         <BacktestForm onSubmit={handleSubmit} />
         <BacktestDetails onSubmit={handleSubmit} />
@@ -107,6 +104,12 @@ function App() {
           ) : (
             backtestData && <BacktestResults data={backtestData} />
           )}
+        </div>
+        
+        <div className="mb-8 mt-8">
+          <p className="text-gray-600 mt-4">Note: Even if you see a profit of less than 40 Rs, it might still appear as a loss due to brokerage charges, which can be a minimum of 40 Rs. Therefore, if you are earning less than 40 Rs, you are still at a loss.</p>
+          <p className="text-gray-600 mt-4"><b>Disclaimer</b>: This application is intended for educational purposes only. It is not financial advice and should not be used for actual trading decisions.This application is intended for educational purposes only. It is not financial advice and should not be used for actual trading decisions. This application is designed to improve your stock market testing and accuracy. If you are investing or planning to invest in the stock market or crypto, this application can be very helpful for you as it provides many options such as creating and testing your own strategy. Note that the stock market is not always suitable for day trading, and only those who are investing can understand this.</p>
+          <p className="text-gray-600 mt-4">This application will undergo many changes. We will improve it significantly by implementing features such as sentiment analysis and machine learning, as well as incorporating data analysis.</p>
         </div>
       </main>
     </div>
